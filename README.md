@@ -59,7 +59,7 @@ pip install -rrequirements_cpu_only.txt
 5) AMD: Manually install [ExLlama](https://github.com/turboderp/exllama) by simply cloning it into the `repositories` folder (it will be automatically compiled at runtime after that):
 
 ```
-cd text-generation-webui
+cd llm_serve
 git clone https://github.com/turboderp/exllama repositories/exllama
 ```
 
@@ -79,8 +79,8 @@ cp docker/.env.example .env
 docker compose up --build
 ```
 
-* You need to have docker compose v2.17 or higher installed. See [this guide](https://github.com/oobabooga/text-generation-webui/blob/main/docs/Docker.md) for instructions.
-* For additional docker files, check out [this repository](https://github.com/Atinoda/text-generation-webui-docker).
+* You need to have docker compose v2.17 or higher installed. See [this guide](https://github.com/oobabooga/llm_serve/blob/main/docs/Docker.md) for instructions.
+* For additional docker files, check out [this repository](https://github.com/Atinoda/llm_serve-docker).
 
 ### Updating the requirements
 
@@ -88,7 +88,7 @@ From time to time, the `requirements.txt` changes. To update, use these commands
 
 ```
 conda activate textgen
-cd text-generation-webui
+cd llm_serve
 pip install -r requirements.txt --upgrade
 ```
 
@@ -110,7 +110,7 @@ Models should be placed in the `/models` folder. They are usually downloaded fro
 * Transformers or GPTQ models are made of several files and must be placed in a subfolder. Example:
 
 ```
-text-generation-webui
+llm_serve
 ├── models
 │   ├── lmsys_vicuna-33b-v1.3
 │   │   ├── config.json
@@ -131,7 +131,7 @@ text-generation-webui
 * GGUF models are a single file and should be placed directly into `models`. Example:
 
 ```
-text-generation-webui
+llm_serve
 ├── models
 │   ├── llama-2-13b-chat.Q4_K_M.gguf
 ```
@@ -169,8 +169,14 @@ When you load this model in default or notebook modes, the "HTML" tab will show 
 ## Starting the web UI
 
     conda activate textgen
-    cd text-generation-webui
-    python server.py
+    cd llm_serve
+    python3 server.py
+
+    (hoặc là): 
+    echo "dark_theme: true" > /content/settings.yaml
+    echo "chat_style: wpp" >> /content/settings.yaml
+
+    python3 server.py --share --settings settings.yaml --model models/Llama-2-7b-chat-hf
 
 Then browse to 
 
